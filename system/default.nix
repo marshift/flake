@@ -4,14 +4,8 @@
     ./packages.nix
     ./locale.nix
     ./networking.nix
+    ./users.nix
   ];
-
-  users.users.marsh = {
-    isNormalUser = true;
-    name = "marsh";
-    home = "/home/marsh";
-    extraGroups = [ "wheel" ];
-  };
 
   # Don't clog my boot menu please
   boot.loader = {
