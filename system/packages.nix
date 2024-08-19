@@ -3,7 +3,7 @@
 let sets = with pkgs; {
   core = [
     git
-    wget
+    bash
   ];
 
   editors = [
@@ -11,6 +11,7 @@ let sets = with pkgs; {
   ];
 
   utils = [
+    wget
     tldr
     gh
   ];
