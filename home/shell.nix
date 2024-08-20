@@ -2,7 +2,7 @@
 
 {
   home.shellAliases = {
-    rebuild-flake = "sudo nixos-rebuild switch --flake";
+    rebuild-flake = "nixos-rebuild switch --use-remote-sudo --flake";
   };
 
   home.sessionVariables = {
