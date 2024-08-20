@@ -4,7 +4,10 @@
   nix = {
     settings = {
       # Enable flake-adjacent features
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
       # Woo, "free optimisation"
       auto-optimise-store = true;
@@ -21,6 +24,7 @@
       dates = "weekly";
       options = "--delete-older-than 3d";
     };
+    package = pkgs.lix;
   };
 
   nixpkgs = {

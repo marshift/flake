@@ -1,12 +1,6 @@
+{ pkgs, ... }:
 {
-  imports = [
-    ./nix.nix
-    ./packages.nix
-    ./locale.nix
-    ./networking.nix
-    ./users.nix
-  ];
-
+  imports = [ ./hardware.nix ];
   # Don't clog my boot menu please
   boot.loader = {
     systemd-boot.configurationLimit = 3;

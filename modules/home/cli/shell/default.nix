@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
   home.shellAliases = {
@@ -6,13 +6,16 @@
   };
 
   home.sessionVariables = {
-    NIX_SHELL_PRESERVE_PROMPT=1;
-    PS1="\\u@\\h:\\w\\$ "; # TODO: Colour the prompt!
+    NIX_SHELL_PRESERVE_PROMPT = 1;
+    PS1 = "\\u@\\h:\\w\\$ "; # TODO: Colour the prompt!
   };
 
   programs.bash = {
     enable = true;
     historyFile = "$HOME/.bash_history";
-    historyControl = [ "ignorespace" "ignoredups" ];
+    historyControl = [
+      "ignorespace"
+      "ignoredups"
+    ];
   };
 }
