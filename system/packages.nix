@@ -10,10 +10,15 @@ let sets = with pkgs; {
     nano
   ];
 
+  browsers = [
+    firefox
+  ];
+
   utils = [
     wget
     tldr
     gh
+    foot
   ];
 };
 
