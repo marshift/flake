@@ -2,31 +2,39 @@
   description = "marsh's lovely little nix flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
-    home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs = {
+      type = "github";
+      owner = "nixos";
+      repo = "nixpkgs";
+      ref = "nixos-unstable";
     };
     lix = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      type = "git";
+      url = "https://git.lix.systems/lix-project/nixos-module";
+      ref = "release-2.91"; # TODO: 2.92 (main) currently doesn't build
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    snowfall-lib = {
+    home-manager = {
+      type = "github";
+      owner = "nix-community";
+      repo = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    snowfall = {
       type = "github";
       owner = "snowfallorg";
       repo = "lib";
-      ref = "dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs =
     inputs:
     let
-      lib = inputs.snowfall-lib.mkLib {
+      lib = inputs.snowfall.mkLib {
         inherit inputs;
         src = ./.;
         snowfall = {
-          namespace = "marsh";
+          namespace = "habitat";
         };
       };
     in
@@ -39,5 +47,4 @@
       homes.modules = with inputs; [ ];
       outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
     };
-
 }

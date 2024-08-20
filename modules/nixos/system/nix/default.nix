@@ -24,13 +24,8 @@
       dates = "weekly";
       options = "--delete-older-than 3d";
     };
-    package = pkgs.lix;
-  };
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true; # Absolutely proprietary.
-      allowBroken = false;
-    };
+    # Make the config delicious
+    package = pkgs.lix;
   };
 }
