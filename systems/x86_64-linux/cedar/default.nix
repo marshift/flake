@@ -1,10 +1,15 @@
 { pkgs, ... }:
 {
   imports = [ ./hardware.nix ];
-  # Don't clog my boot menu please
+
+  # Setup bootloader
   boot.loader = {
-    systemd-boot.configurationLimit = 3;
-    grub.configurationLimit = 3;
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 3;
+    };
+
+    efi.canTouchEfiVariables = true;
   };
 
   # Make more than 1/5 of the hardware work
