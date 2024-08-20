@@ -11,25 +11,33 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  outputs = inputs@{ self, nixpkgs, home-manager, lix, ... }: {
-    nixosConfigurations.cedar = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./hosts/cedar
-        ./system
-
-        lix.nixosModules.default
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.marsh.imports = [ ./home ];
-          };  
-        }
-      ];
+    snowfall-lib = {
+      type = "github";
+      owner = "snowfallorg";
+      repo = "lib";
+      ref = "dev";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+  outputs =
+    inputs:
+    let
+      lib = inputs.snowfall-lib.mkLib {
+        inherit inputs;
+        src = ./.;
+        snowfall = {
+          namespace = "marsh";
+        };
+      };
+    in
+    lib.mkFlake {
+      channels-config = {
+        allowUnfree = true;
+      };
+      overlays = with inputs; [ lix.overlays.default ];
+      systems.modules.nixos = with inputs; [ ];
+      homes.modules = with inputs; [ ];
+      outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
+    };
+
 }

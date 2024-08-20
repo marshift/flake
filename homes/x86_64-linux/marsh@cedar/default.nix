@@ -1,9 +1,5 @@
+{ ... }:
 {
-  imports = [
-    ./git.nix
-    ./shell.nix
-    ./desktop.nix
-  ];
 
   # Allow home-manager to manage itself
   programs.home-manager.enable = true;
