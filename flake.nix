@@ -53,7 +53,10 @@
       channels-config = {
         allowUnfree = true;
       };
-      overlays = with inputs; [ lix.overlays.default ];
+      overlays = with inputs; [
+        lix.overlays.default
+        niri.overlays.niri
+      ];
       systems.modules.nixos = with inputs; [ niri.nixosModules.niri ];
       # homes.modules = with inputs; [ ];
       outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
