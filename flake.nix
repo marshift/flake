@@ -31,6 +31,12 @@
       repo = "lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri = {
+      type = "github";
+      owner = "sodiboo";
+      repo = "niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs:
@@ -48,8 +54,8 @@
         allowUnfree = true;
       };
       overlays = with inputs; [ lix.overlays.default ];
-      systems.modules.nixos = with inputs; [ ];
-      homes.modules = with inputs; [ ];
+      systems.modules.nixos = with inputs; [ niri.nixosModules.niri ];
+      # homes.modules = with inputs; [ ];
       outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
     };
 }
