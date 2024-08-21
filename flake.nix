@@ -2,6 +2,11 @@
   description = "marsh's lovely little nix flake";
 
   inputs = {
+    nixos-hardware = {
+      type = "github";
+      owner = "nixos";
+      repo = "nixos-hardware";
+    };
     nixpkgs = {
       type = "github";
       owner = "nixos";

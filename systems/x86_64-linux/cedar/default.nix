@@ -1,16 +1,11 @@
-{ pkgs, ... }:
+{ inputs, ... }:
+
 {
-  imports = [ ./hardware.nix ];
-
-  # Setup bootloader
-  boot.loader = {
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 3;
-    };
-
-    efi.canTouchEfiVariables = true;
-  };
+  imports = with inputs.nixos-hardware.nixosModules; [
+    ./disks.nix
+    ./boot.nix
+    apple-macbook-pro-12-1
+  ];
 
   # Make more than 1/5 of the hardware work
   hardware.enableAllFirmware = true;
