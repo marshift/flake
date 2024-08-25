@@ -3,16 +3,30 @@
 {
   imports = with inputs.nixos-hardware.nixosModules; [
     ./disks.nix
-    ./boot.nix
-    ./graphics.nix
     common-pc
     common-pc-ssd
     common-cpu-amd
   ];
 
-  # Make more than 1/5 of the hardware work
-  hardware.enableAllFirmware = true;
+  boot = {
+    initrd = {
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
+    };
 
-  # Don't touch - or at least do some reading first.
+    kernelModules = [ "kvm-amd" ];
+  };
+
+  habitat = {
+    systemd-boot.enable = true;
+    meta.drivers.nvidia.enable = true;
+  };
+
   system.stateVersion = "24.05";
 }

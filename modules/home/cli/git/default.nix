@@ -1,13 +1,19 @@
-{ ... }:
-{
-  programs.git = {
-    enable = true;
+{ config, lib, ... }:
 
-    userName = "marshift";
-    userEmail = "marshift@riseup.net";
+lib.habitat.mkModule {
+  inherit config;
+  path = [ "home" "cli" "git" ];
+  default = true; # Flakes need git
+  output = {
+    programs.git = {
+      enable = true;
 
-    extraConfig = {
-      init.defaultBranch = "master";
+      userName = "marshift";
+      userEmail = "marshift@riseup.net";
+
+      extraConfig = {
+        init.defaultBranch = "master";
+      };
     };
   };
 }

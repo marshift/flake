@@ -3,13 +3,26 @@
 {
   imports = with inputs.nixos-hardware.nixosModules; [
     ./disks.nix
-    ./boot.nix
     apple-macbook-pro-12-1
   ];
 
-  # Make more than 1/5 of the hardware work
-  hardware.enableAllFirmware = true;
+  boot = {
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"
+      ];
+    };
 
-  # Don't touch - or at least do some reading first.
+    kernelModules = [ "kvm-intel" ];
+  };
+
+  habitat.nixos = {
+    systemd-boot.enable = true;
+  };
+
   system.stateVersion = "24.05";
 }
