@@ -23,7 +23,7 @@
     kernelModules = [ "kvm-amd" ];
   };
 
-  habitat = {
+  habitat.nixos = {
     systemd-boot.enable = true;
     meta.drivers.nvidia.enable = true;
   };
