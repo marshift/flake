@@ -9,7 +9,7 @@ let
 in
 lib.habitat.mkModule {
   inherit config;
-  path = [ "nixos" "meta" "drivers" "nvidia" ];
+  path = [ "nixos" "drivers" "nvidia" ];
   output = {
     hardware = {
       # NVIDIA driver options

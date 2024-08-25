@@ -25,6 +25,7 @@
 
   habitat.nixos = {
     systemd-boot.enable = true;
+    drivers.nvidia.enable = true;
     services.pipewire.enable = true;
   };
 
