@@ -2,7 +2,7 @@
 
 lib.habitat.mkModule {
   inherit config;
-  path = [ "nixos" "meta" "firmware" ];
+  path = [ "nixos" "services" "fwupd" ];
   default = true;
   output = {
     hardware.enableAllFirmware = true;
