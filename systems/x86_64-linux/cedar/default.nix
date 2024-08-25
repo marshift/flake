@@ -22,6 +22,7 @@
 
   habitat.nixos = {
     systemd-boot.enable = true;
+    services.pipewire.enable = true;
   };
 
   system.stateVersion = "24.05";
