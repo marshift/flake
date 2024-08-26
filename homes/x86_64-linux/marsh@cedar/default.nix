@@ -7,7 +7,19 @@
       gh.enable = true;
     };
     desktop = {
-      hyprland.enable = true;
+      niri = {
+        enable = true;
+        keyboardLayout = "gb";
+        outputs = {
+          "DP-1" = {
+            mode = {
+              width = 2560;
+              height = 1600;
+              refresh = 60.0;
+            };
+          };
+        };
+      };
     };
   };
 

@@ -57,8 +57,8 @@
         lix.overlays.default
         niri.overlays.niri
       ];
-      systems.modules.nixos = with inputs; [ niri.nixosModules.niri ];
-      # homes.modules = with inputs; [ ];
+      # systems.modules.nixos = with inputs; [ ];
+      homes.modules = with inputs; [ niri.homeModules.niri ];
       outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
     };
 }

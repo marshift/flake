@@ -1,18 +1,27 @@
-{ inputs, system, ... }:
-{
-  systemd.user.services.xwayland-satellite = {
-    Unit = {
-      Description = "xwayland-satellite";
-      PartOf = [ "graphical-session.target" ];
-      Requires = [ "niri.service" ];
-      After = [ "niri.service" ];
-    };
-    Service = {
-      ExecStart = "${inputs.niri.packages.${system}.xwayland-satellite}/bin/xwayland-satellite";
-      Restart = "on-failure";
-    };
-    Install = {
-      WantedBy = [ "niri.service" ];
-    };
+{ config, lib, inputs, system, ... }:
+
+lib.habitat.mkModule {
+  inherit config;
+  path = [ "home" "services" "xwayland-satellite" ];
+  extraOptions = {
+    targetService = lib.mkOption { type = lib.types.str; };
+    execStart = lib.mkOption { type = lib.types.str; };
+  };
+  output = with config.habitat.home.services.xwayland-satellite; {
+    systemd.user.services.xwayland-satellite = {
+      Unit = {
+        Description = "xwayland-satellite";
+        PartOf = [ "graphical-session.target" ];
+        Requires = [ targetService ];
+        After = [ targetService ];
+      };
+      Service = {
+        ExecStart = execStart;
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = [ targetService ];
+      };
+    };  
   };
 }
