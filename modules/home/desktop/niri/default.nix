@@ -9,10 +9,16 @@ lib.habitat.mkModule {
   };
   output = with config.habitat.home.desktop.niri; {
     habitat.home = {
-      services.xwayland-satellite = {
-        enable = true;
-        targetService = "niri.service";
-        execStart = lib.getExe inputs.niri.packages.${system}.xwayland-satellite;
+      services = {
+        xwayland-satellite = {
+          enable = true;
+          targetService = "niri.service";
+          execStart = lib.getExe inputs.niri.packages.${system}.xwayland-satellite;
+        };
+        swaybg = {
+          enable = true;
+          targetService = "niri.service";
+        };
       };
     };
 
