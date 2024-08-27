@@ -20,6 +20,8 @@
     kernelModules = [ "kvm-intel" ];
   };
 
+  hardware.graphics.enable = true;
+
   habitat.nixos = {
     systemd-boot.enable = true;
     services.pipewire.enable = true;
