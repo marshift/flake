@@ -14,7 +14,7 @@
         enable = true;
         keyboardLayout = "gb";
         outputs = {
-          "DP-1" = {
+          "eDP-1" = {
             mode = {
               width = 2560;
               height = 1600;
