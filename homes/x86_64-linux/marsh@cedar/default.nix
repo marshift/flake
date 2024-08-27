@@ -7,6 +7,7 @@
       gh.enable = true;
     };
     desktop = {
+      firefox.enable = true;
       niri = {
         enable = true;
         keyboardLayout = "gb";
