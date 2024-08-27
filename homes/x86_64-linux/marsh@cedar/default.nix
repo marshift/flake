@@ -8,6 +8,7 @@
     };
     desktop = {
       firefox.enable = true;
+      fuzzel.enable = true;
       foot.enable = true;
       niri = {
         enable = true;

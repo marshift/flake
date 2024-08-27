@@ -66,12 +66,12 @@ lib.habitat.mkModule {
         binds =
           with config.lib.niri.actions;
           let
+            desktopPrograms = config.habitat.home.desktop;
             sh = spawn "sh" "-c";
           in
           lib.mergeAttrsList [
             {
               "Mod+Shift+Slash".action = show-hotkey-overlay;
-              "Mod+D".action = sh "${lib.getExe pkgs.fuzzel}";
               "Mod+Q".action = close-window;
               "Mod+Left".action = focus-column-left;
               "Mod+Down".action = focus-window-down;
@@ -137,8 +137,11 @@ lib.habitat.mkModule {
               "Mod+Shift+E".action = quit;
               "Mod+Shift+P".action = power-off-monitors;
             }
-            (lib.optionalAttrs config.habitat.home.desktop.foot.enable {
+            (lib.optionalAttrs desktopPrograms.foot.enable {
               "Mod+Return".action.spawn = "${lib.getExe config.programs.foot.package}";
+            })
+            (lib.optionalAttrs desktopPrograms.fuzzel.enable {
+              "Mod+D".action = sh "${lib.getExe config.programs.fuzzel.package}";
             })
           ];
         window-rules = [
