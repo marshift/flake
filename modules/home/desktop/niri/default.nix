@@ -18,6 +18,10 @@ lib.habitat.mkModule {
           enable = true;
           targetService = "niri.service";
         };
+        waybar = {
+          enable = true;
+          targetService = "niri.service";
+        };
       };
     };
 
