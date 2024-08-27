@@ -13,7 +13,6 @@ lib.habitat.mkModule {
         xwayland-satellite = {
           enable = true;
           targetService = "niri.service";
-          execStart = lib.getExe inputs.niri.packages.${system}.xwayland-satellite;
         };
         swaybg = {
           enable = true;

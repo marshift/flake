@@ -7,20 +7,10 @@ lib.habitat.mkModule {
     targetService = lib.mkOption { type = lib.types.str; };
   };
   output = with config.habitat.home.services.swaybg; {
-    systemd.user.services.swaybg = {
-      Unit = {
-        Description = "swaybg";
-        PartOf = [ "graphical-session.target" ];
-        Requires = [ targetService ];
-        After = [ targetService ];
-      };
-      Service = {
-        ExecStart = "${lib.getExe pkgs.swaybg} -i ${config.stylix.image}";
-        Restart = "on-failure";
-      };
-      Install = {
-        WantedBy = [ targetService ];
-      };
+    systemd.user.services.swaybg = lib.habitat.mkGraphicalService {
+      inherit targetService;
+      description = "swaybg - simple wallpaper daemon for wlroots";
+      execStart = "${lib.getExe pkgs.swaybg} -i ${config.stylix.image}";
     };  
   };
 }
