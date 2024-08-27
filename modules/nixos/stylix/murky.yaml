@@ -1,0 +1,22 @@
+# Based on https://github.com/marshift/murky/blob/master/styles/_colors.scss
+system: "base16"
+name: "murky"
+author: "marshift <marshift@riseup.net>"
+variant: "dark"
+palette:
+  base00: "321f42" # bg-tertiary
+  base01: "351f43" # bg-secondary
+  base02: "391f45" # bg-primary
+  base03: "442553"
+  base04: "cca0b7" # text-dim
+  base05: "ffc9e5" # text-normal
+  base06: "ffd3ea" # text-bright
+  base07: "fde2f0" # text-header
+  base08: "ff0a88" # accent
+  base09: "ff0a88" # accent
+  base0A: "db0a74" # accent-alt
+  base0B: "db0a74" # accent-alt
+  base0C: "ff0a88" # accent-dim
+  base0D: "ab1862" # accent-dim
+  base0E: "ff0a88" # accent
+  base0F: "ff0a88" # accent

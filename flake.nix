@@ -31,6 +31,12 @@
       repo = "lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      type = "github";
+      owner = "danth";
+      repo = "stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     niri = {
       type = "github";
       owner = "sodiboo";
@@ -57,8 +63,8 @@
         lix.overlays.default
         niri.overlays.niri
       ];
-      # systems.modules.nixos = with inputs; [ ];
-      homes.modules = with inputs; [ niri.homeModules.niri ];
+      systems.modules.nixos = with inputs; [ stylix.nixosModules.stylix  ];
+      homes.modules = with inputs; [ niri.homeModules.niri niri.homeModules.stylix ];
       outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
     };
 }
