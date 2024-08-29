@@ -70,7 +70,6 @@ lib.habitat.mkModule {
           with config.lib.niri.actions;
           let
             desktopPrograms = config.habitat.home.desktop;
-            sh = spawn "sh" "-c";
           in
           lib.mergeAttrsList [
             {
@@ -144,7 +143,7 @@ lib.habitat.mkModule {
               "Mod+Return".action.spawn = "${lib.getExe config.programs.foot.package}";
             })
             (lib.optionalAttrs desktopPrograms.fuzzel.enable {
-              "Mod+D".action = sh "${lib.getExe config.programs.fuzzel.package}";
+              "Mod+D".action.spawn = "${lib.getExe config.programs.fuzzel.package}";
             })
           ];
         window-rules = [
