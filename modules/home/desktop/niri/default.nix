@@ -32,6 +32,7 @@ lib.habitat.mkModule {
         inherit outputs;
         environment = {
           DISPLAY = ":0";
+          NIXOS_OZONE_WL = "1";
         };
         input = {
           keyboard = {
