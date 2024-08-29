@@ -20,6 +20,7 @@
               height = 1440;
               refresh = 144.0;
             };
+            variable-refresh-rate = true;
           };
           "DP-2" = {
             mode = {
