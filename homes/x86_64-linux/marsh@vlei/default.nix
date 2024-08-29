@@ -7,6 +7,7 @@
       gh.enable = true;
     };
     desktop = {
+      vesktop.enable = true;
       firefox.enable = true;
       fuzzel.enable = true;
       foot.enable = true;
