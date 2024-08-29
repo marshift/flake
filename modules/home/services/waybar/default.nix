@@ -54,6 +54,8 @@ lib.habitat.mkModule {
       inherit targetService;
       description = "simple wayland bar";
       execStart = lib.getExe config.programs.waybar.package;
+      execReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+      killMode = "mixed";
     };
   };
 }
