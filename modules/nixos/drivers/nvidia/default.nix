@@ -13,6 +13,7 @@ lib.habitat.mkModule {
       # NVIDIA driver options
       nvidia = {
         package = driverPackage;
+        forceFullCompositionPipeline = true;
         modesetting.enable = true;
         nvidiaSettings = true;
       };
