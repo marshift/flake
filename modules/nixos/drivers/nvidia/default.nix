@@ -2,10 +2,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  vaPackages = with pkgs; [
-    nvidia-vaapi-driver
-    libvdpau-va-gl
-  ];
+  vaPackages = with pkgs; [ nvidia-vaapi-driver ];
+  driverPackage = config.boot.kernelPackages.nvidiaPackages.beta;
 in
 lib.habitat.mkModule {
   inherit config;
@@ -14,9 +12,9 @@ lib.habitat.mkModule {
     hardware = {
       # NVIDIA driver options
       nvidia = {
+        package = driverPackage;
         modesetting.enable = true;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.beta;
       };
 
       # Video acceleration
