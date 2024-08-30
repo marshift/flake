@@ -7,6 +7,7 @@
       gh.enable = true;
     };
     desktop = {
+      vscode.enable = true;
       vesktop.enable = true;
       firefox.enable = true;
       fuzzel.enable = true;
