@@ -7,6 +7,7 @@
       gh.enable = true;
     };
     desktop = {
+      steam.enable = true;
       vscode.enable = true;
       vesktop.enable = true;
       firefox.enable = true;
