@@ -26,7 +26,10 @@
   habitat.nixos = {
     systemd-boot.enable = true;
     drivers.nvidia.enable = true;
-    services.pipewire.enable = true;
+    services = {
+      pipewire.enable = true;
+      openrgb.enable = true;
+    };
   };
 
   system.stateVersion = "24.05";
