@@ -33,7 +33,7 @@ lib.habitat.mkModule {
           
           modules-left = [ "image#logo" "custom/whoami" ];
           modules-center = [ "clock" ];
-          modules-right = [ "temperature" "battery" ];
+          modules-right = [ "temperature" "battery" "tray" ];
         };
       };
       style = with config.lib.stylix.colors.withHashtag; ''
@@ -43,7 +43,7 @@ lib.habitat.mkModule {
           border-bottom: 2px solid ${base0D};
         }
 
-        box#image {
+        box#image, box#tray {
           margin-left: 0.25rem;
           margin-right: 0.25rem;
         }
