@@ -21,6 +21,7 @@ lib.habitat.mkModule {
       # Video acceleration
       graphics = {
         enable = true;
+        enable32Bit = true;
         extraPackages = vaPackages;
         extraPackages32 = vaPackages;
       };
