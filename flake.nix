@@ -7,11 +7,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, ... }@attrs: {
+  outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.sally = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
-      specialArgs = attrs;
-      modules = [ ./systems/sally/configuration.nix ];
+      specialArgs = { inherit inputs; };
+      modules = [ ./systems/sally ];
     };
   };
 }

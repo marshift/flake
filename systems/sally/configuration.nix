@@ -1,10 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
-
-  boot.loader.systemd-boot.enable = true;
-
   networking = {
     hostName = "sally"; # Sally Cinnamon, you're my world
     wireless.iwd = {
