@@ -75,6 +75,9 @@
             }
             ./modules/nixos/services/iwd.nix
           ];
+          homeModules = [
+            ./modules/home/cli/git.nix
+          ];
         }
       ];
     };
