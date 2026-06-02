@@ -1,13 +1,13 @@
 {
   description = "marsh's NixOS configurations";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-apple-silicon = {
-      url = "github:nix-community/nixos-apple-silicon/release-25.11";
+      url = "github:nix-community/nixos-apple-silicon/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
