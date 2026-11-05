@@ -57,4 +57,4 @@ jobs:
         run: |
           sleep 30
           gh pr checks --watch --fail-fast "$PR"
-          gh pr merge --squash --delete-branch --subject "packages+flake: update (#$PR)" "$PR"
+          gh pr merge --squash --delete-branch --subject "[skip ci] packages+flake: update (#$PR)" "$PR"
