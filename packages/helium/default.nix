@@ -1,0 +1,200 @@
+{
+  pkgs,
+  commandLineArgs ? "",
+  ...
+}:
+let
+  inherit (pkgs)
+    stdenv
+    lib
+    fetchurl
+    makeDesktopItem
+    ;
+  inherit (stdenv.hostPlatform) isDarwin isLinux system;
+  inherit (lib.lists) optionals;
+  inherit (lib.strings) optionalString makeLibraryPath escapeShellArg;
+
+  versions = {
+    linux = "0.20.1.1";
+    darwin = "0.20.1.1";
+  };
+  version = if isDarwin then versions.darwin else versions.linux;
+
+  srcs = {
+    x86_64-linux = {
+      url = "https://github.com/imputnet/helium-linux/releases/download/${versions.linux}/helium-${versions.linux}-x86_64_linux.tar.xz";
+      hash = "sha256-ICP6RM76D70+GQcch+kNYSdfCLqPW0jVjCNSFVZem1M=";
+    };
+    aarch64-linux = {
+      url = "https://github.com/imputnet/helium-linux/releases/download/${versions.linux}/helium-${versions.linux}-arm64_linux.tar.xz";
+      hash = "sha256-IRqV4Qlg1is3Z1GSD7uTzf8FH1v8+hNrUulw9OaWNXc=";
+    };
+    x86_64-darwin = {
+      url = "https://github.com/imputnet/helium-macos/releases/download/${versions.darwin}/helium_${versions.darwin}_x86_64-macos.dmg";
+      hash = "sha256-otXrzIfHcv/43qIaheUhZcaLoxGOYTs6kV9NHTPZX7o=";
+    };
+    aarch64-darwin = {
+      url = "https://github.com/imputnet/helium-macos/releases/download/${versions.darwin}/helium_${versions.darwin}_arm64-macos.dmg";
+      hash = "sha256-WhFxjqIjeh5Z8shPrPIWar24B3M5kIXWzXhF1z8dc5o=";
+    };
+  };
+in
+stdenv.mkDerivation {
+  pname = "helium";
+  inherit version;
+
+  src = fetchurl (srcs.${system} or (throw "Unsupported system: ${system}"));
+
+  nativeBuildInputs =
+    with pkgs;
+    [
+      makeWrapper
+    ]
+    ++ optionals isLinux [
+      autoPatchelfHook
+      copyDesktopItems
+    ]
+    ++ optionals isDarwin [
+      _7zz
+    ];
+
+  unpackCmd = optionalString isDarwin ''
+    7zz x $src
+  '';
+
+  buildInputs =
+    with pkgs;
+    optionals isLinux [
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      atk
+      cairo
+      cups
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      gtk3
+      libGL
+      libx11
+      libxscrnsaver
+      libxcomposite
+      libxcursor
+      libxdamage
+      libxext
+      libxfixes
+      libxi
+      libxrandr
+      libxrender
+      libxtst
+      libdrm
+      libgbm
+      libpulseaudio
+      libxcb
+      libxkbcommon
+      mesa
+      nspr
+      nss
+      pango
+      pipewire
+      systemd
+      vulkan-loader
+      wayland
+      libxshmfence
+      libuuid
+      kdePackages.qtbase
+    ];
+
+  autoPatchelfIgnoreMissingDeps = optionals isLinux [
+    "libQt6Core.so.6"
+    "libQt6Gui.so.6"
+    "libQt6Widgets.so.6"
+    "libQt5Core.so.5"
+    "libQt5Gui.so.5"
+    "libQt5Widgets.so.5"
+  ];
+
+  dontWrapQtApps = isLinux;
+
+  installPhase =
+    if isDarwin then
+      ''
+        runHook preInstall
+
+        mkdir -p $out/Applications/Helium.app
+        cp -r . $out/Applications/Helium.app
+
+        mkdir -p $out/bin
+        makeWrapper $out/Applications/Helium.app/Contents/MacOS/Helium $out/bin/helium \
+          --add-flags "--disable-component-update" \
+          --add-flags "--simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'" \
+          --add-flags "--check-for-update-interval=0" \
+          --add-flags "--disable-background-networking"
+
+        runHook postInstall
+      ''
+    else
+      ''
+        runHook preInstall
+
+        mkdir -p $out/bin $out/opt/helium
+        cp -r * $out/opt/helium
+
+        # The binary is named 'helium' as of version 0.8.3.1
+        makeWrapper $out/opt/helium/helium $out/bin/helium \
+          --prefix LD_LIBRARY_PATH : "${
+            makeLibraryPath (
+              with pkgs;
+              [
+                libGL
+                libvdpau
+                libva
+                pipewire
+                alsa-lib
+                libpulseaudio
+              ]
+            )
+          }" \
+          --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
+          --add-flags ${escapeShellArg commandLineArgs}
+
+        # Install icon
+        mkdir -p $out/share/icons/hicolor/256x256/apps
+        cp $out/opt/helium/product_logo_256.png $out/share/icons/hicolor/256x256/apps/helium.png
+
+        runHook postInstall
+      '';
+
+  desktopItems = optionals isLinux [
+    (makeDesktopItem {
+      name = "helium";
+      exec = "helium %U";
+      icon = "helium";
+      desktopName = "Helium";
+      genericName = "Web Browser";
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
+      terminal = false;
+      mimeTypes = [
+        "text/html"
+        "text/xml"
+        "application/xhtml+xml"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
+      ];
+    })
+  ];
+
+  meta = {
+    description = "Private, fast, and honest web browser based on ungoogled-chromium";
+    homepage = "https://helium.computer/";
+    license = lib.licenses.gpl3Only;
+    platforms = lib.attrsets.attrNames srcs;
+    mainProgram = "helium";
+  };
+}

@@ -1,0 +1,40 @@
+name: Update
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Install Lix
+        uses: canidae-solutions/lix-quick-install-action@8ccd1622179c3881955a55d538670c43e4e22c06
+
+      - name: Update packages
+        run: |
+          bash .github/update-helium.sh
+
+      - name: Update flake inputs and PR
+        id: pr
+        uses: DeterminateSystems/update-flake-lock@da03c0f078bc4b2c37ee4f7e072d34bf8f188bb3
+        with:
+          token: ${{ secrets.UPDATE_GH_TOKEN }}
+          branch: actions/update
+          commit-msg: "packages+flake: update"
+          pr-title: Update packages and flake inputs
+          pr-body: |
+            ```
+            {{ env.GIT_COMMIT_MESSAGE }}
+            ```
+
+      - name: Wait for checks and merge
+        env:
+            GH_TOKEN: ${{ secrets.UPDATE_GH_TOKEN }}
+            PR: ${{ steps.pr.outputs.pull-request-url }}
+        run: |
+          sleep 30
+          gh pr checks "$PR" --watch --fail-fast
+          gh pr merge --squash --delete-branch "$PR"
