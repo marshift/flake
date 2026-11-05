@@ -1,0 +1,26 @@
+name: Check flake
+on:
+  push:
+
+jobs:
+  check:
+    name: Check ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04 # NixOS
+          - os: ubuntu-24.04-arm # NixOS on Asahi Linux
+          - os: macos-latest # nix-darwin
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Install Lix
+        uses: canidae-solutions/lix-quick-install-action@8ccd1622179c3881955a55d538670c43e4e22c06
+        
+      - name: Check flake
+        run: nix flake check --show-trace

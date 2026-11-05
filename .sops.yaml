@@ -1,0 +1,15 @@
+keys:
+  - &marsh age1flkj0qcqk96ldtldtxlpekrlzl8f02t8037jl8hfg8ldtlhl05jskauw5d
+  - &marsh-sops age1p5l0shk4xzzkcyk26sgqzmemzey4jhpt4nxyfscpfc0yft659fwq43g8jg
+
+creation_rules:
+  - path_regex: secrets/shared/[^/]+\.(yaml|json|env)$
+    key_groups:
+      - age:
+        - *marsh
+        - *marsh-sops
+  - path_regex: secrets/marsh/[^/]+\.(yaml|json|env)$
+    key_groups:
+      - age:
+        - *marsh
+        - *marsh-sops
