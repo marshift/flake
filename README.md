@@ -1,6 +1,6 @@
 # flake
 
-marsh's Nix(-darwin|OS) configurations
+marsh's Nix`/OS|-darwin/` configurations
 
 ```sh
 nix develop

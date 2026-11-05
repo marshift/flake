@@ -1,5 +1,5 @@
 {
-  description = "marsh's Nix(-darwin|OS) configurations";
+  description = "marsh's Nix/OS|-darwin/ configurations";
 
   inputs = {
     # It's just generally better to use a non-GitHub URL for nixpkgs these days.
