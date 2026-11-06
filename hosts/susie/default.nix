@@ -23,10 +23,7 @@
     secrets.sshKeyPaths = [ "/home/marsh/.ssh/sops_ed25519" ];
 
     desktop.enable = true;
-    social = {
-      enable = true;
-      discord.enable = false; # TODO: Discord don't do ARM builds at all... Dorion or Legcord?
-    };
+    social.enable = true;
     media.enable = true;
     development.enable = true;
     security.bitwarden.enable = true;

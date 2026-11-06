@@ -27,6 +27,10 @@
       url = "github:homebrew/homebrew-cask/main";
       flake = false;
     };
+    homebrew-dorion = {
+      url = "https://github.com/psharma04/homebrew-dorion";
+      flake = false;
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
