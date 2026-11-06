@@ -3,12 +3,9 @@
   lib,
 }:
 let
-  inherit (lib.filesystem) listFilesRecursive baseNameOf;
-  inherit (lib.lists) filter;
-
   listModulesRecursive =
     baseName:
-    lib.lists.filter (path: baseNameOf path == baseName) (
+    lib.lists.filter (path: lib.filesystem.baseNameOf path == baseName) (
       lib.filesystem.listFilesRecursive "${inputs.self}/modules"
     );
 
