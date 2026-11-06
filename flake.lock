@@ -104,6 +104,27 @@
         "type": "github"
       }
     },
+    "fluxer-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793917843,
+        "narHash": "sha256-VLyMoHftGDTvbi8ArI6QUyKurQNLG14CnXGg1qw2xBc=",
+        "owner": "Hy4ri",
+        "repo": "fluxer-flake",
+        "rev": "693dec5168b64625d290789bf13145718e6895b7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Hy4ri",
+        "ref": "master",
+        "repo": "fluxer-flake",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -352,6 +373,7 @@
     },
     "root": {
       "inputs": {
+        "fluxer-flake": "fluxer-flake",
         "home-manager": "home-manager",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",

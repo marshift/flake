@@ -51,6 +51,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    fluxer-flake = {
+      url = "github:Hy4ri/fluxer-flake/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     steam-config-nix = {
       url = "github:different-name/steam-config-nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
