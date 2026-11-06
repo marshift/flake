@@ -46,8 +46,7 @@ in
 
         avd = mkIf hardwareCfg.gpu.enable {
           enable = true;
-          # TODO: At the moment this seems to make all videos Green lol
-          # vaapi-support = true;
+          vaapi-support = true;
         };
       };
 
