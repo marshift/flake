@@ -162,13 +162,18 @@
     "homebrew-dorion": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-HOut+AAsl5wbvMt6+hBgkuFIz8mMB1EWIjSNftytDqk=",
-        "type": "file",
-        "url": "https://github.com/psharma04/homebrew-dorion"
+        "lastModified": 1791776052,
+        "narHash": "sha256-tp6u1yB1GVUUSbu66X0umlCY0K84EySuArLh1Pg1mjo=",
+        "owner": "psharma04",
+        "repo": "homebrew-dorion",
+        "rev": "572b16cda2aa585888d914d84121bc75f84eca62",
+        "type": "github"
       },
       "original": {
-        "type": "file",
-        "url": "https://github.com/psharma04/homebrew-dorion"
+        "owner": "psharma04",
+        "ref": "main",
+        "repo": "homebrew-dorion",
+        "type": "github"
       }
     },
     "moonlight": {
@@ -401,6 +406,7 @@
       },
       "original": {
         "owner": "different-name",
+        "ref": "main",
         "repo": "steam-config-nix",
         "type": "github"
       }

@@ -28,7 +28,7 @@
       flake = false;
     };
     homebrew-dorion = {
-      url = "https://github.com/psharma04/homebrew-dorion";
+      url = "github:psharma04/homebrew-dorion/main";
       flake = false;
     };
 
@@ -52,7 +52,7 @@
     };
 
     steam-config-nix = {
-      url = "github:different-name/steam-config-nix";
+      url = "github:different-name/steam-config-nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
