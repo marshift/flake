@@ -6,10 +6,10 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isAarch;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isAarch64;
 in
 {
   options.swamp.social.dorion.enable = self.lib.options.mkEnableOptionWithDefault "Dorion" (
-    config.swamp.social.enable && config.swamp.desktop.enable && (isLinux && isAarch)
+    config.swamp.social.enable && config.swamp.desktop.enable && (isLinux && isAarch64)
   );
 }

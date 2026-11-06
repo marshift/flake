@@ -5,18 +5,18 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isAarch;
-  isArmLinux = isLinux && isAarch;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isAarch64;
+  isAarch64Linux = isLinux && isAarch64;
 in
 {
   options.swamp.social.discord.enable = self.lib.options.mkEnableOptionWithDefault "Discord" (
-    config.swamp.social.enable && config.swamp.desktop.enable && !isArmLinux
+    config.swamp.social.enable && config.swamp.desktop.enable && !isAarch64Linux
   );
 
   config.assertions = [
     {
-      assertion = isArmLinux;
-      message = "This module cannot be imported on ARM Linux because Discord do not build for it.";
+      assertion = isAarch64Linux;
+      message = "This module cannot be imported on ARM64 Linux because Discord do not build for it.";
     }
   ];
 }
