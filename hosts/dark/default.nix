@@ -51,6 +51,5 @@
       enable = true;
       vr.enable = true;
     };
-    security.bitwarden.enable = true;
   };
 }

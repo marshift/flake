@@ -26,6 +26,5 @@
     social.enable = true;
     media.enable = true;
     development.enable = true;
-    security.bitwarden.enable = true;
   };
 }
