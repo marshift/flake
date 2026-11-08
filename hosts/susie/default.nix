@@ -8,6 +8,7 @@
         machineId = "MacBookAir10,1";
       };
       gpu.enable = true;
+      audio.enable = true;
       bluetooth.enable = true;
       monitors = [
         {

@@ -6,7 +6,7 @@
 let
   inherit (lib.modules) mkIf;
 in
-mkIf config.swamp.desktop.audio.enable {
+mkIf config.swamp.hardware.audio.enable {
   security.rtkit.enable = true;
 
   services.pipewire = {

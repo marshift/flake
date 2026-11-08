@@ -42,7 +42,7 @@ in
         peripheralFirmwareDirectory =
           ./firmware + "/${lib.strings.replaceString "," "-" hardwareCfg.asahi.machineId}";
 
-        setupAsahiSound = config.swamp.desktop.audio.enable;
+        setupAsahiSound = config.swamp.hardware.audio.enable;
 
         avd = mkIf hardwareCfg.gpu.enable {
           enable = true;

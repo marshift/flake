@@ -8,6 +8,7 @@
         enable = true;
         nvidia.enable = true;
       };
+      audio.enable = true;
       bluetooth.enable = true;
       rgb = {
         color = "FF0000";
