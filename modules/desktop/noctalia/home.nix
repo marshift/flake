@@ -8,9 +8,8 @@ let
   wallpaperCfg = osConfig.swamp.desktop.wallpapers;
 
   activeWallpaperPoolDirectories = map (name: wallpaperCfg.pools.${name}) wallpaperCfg.activePools;
-
   wallpapersDirectory = pkgs.symlinkJoin {
-    name = "marshflake-wallpapers";
+    name = "wallpapers";
     paths = activeWallpaperPoolDirectories;
   };
 in

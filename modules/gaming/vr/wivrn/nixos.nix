@@ -24,6 +24,7 @@ mkIf config.swamp.gaming.vr.wivrn.enable {
     autoStart = true;
     highPriority = true;
     openFirewall = true;
+
     steam = mkIf config.swamp.gaming.steam.enable {
       enable = true;
       importOXRRuntimes = true;

@@ -6,10 +6,9 @@
 }:
 let
   cfg = config.swamp.desktop.wallpapers;
-
   activePoolDirectories = map (name: cfg.pools.${name}) cfg.activePools;
 
-  daemonName = "marshflake-wallpaper-cycle";
+  daemonName = "wallpaper-cycle";
 
   cycleScript = pkgs.writeShellScript daemonName ''
     set -euo pipefail
@@ -38,7 +37,6 @@ let
     done
 
     printf '%s\n' "$nextImagePath" > "$statePath"
-
     /usr/bin/osascript -e "tell application \"System Events\" to tell every desktop to set picture to \"$nextImagePath\""
   '';
 in
