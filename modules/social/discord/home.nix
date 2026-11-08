@@ -12,12 +12,14 @@ let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin system;
 
   cfg = config.programs.discord;
-  settingsFormat = pkgs.formats.json { };
+  configDir = if isDarwin then "Library/Application Support" else config.xdg.configHome;
+
+  jsonFormat = pkgs.formats.json { };
 in
 {
   options.programs.discord = {
     moonlight = mkOption {
-      inherit (settingsFormat) type;
+      inherit (jsonFormat) type;
       default = { };
       description = "moonlight settings.";
     };
@@ -32,27 +34,19 @@ in
           NEW_UPDATE_ENDPOINT = "https://inject.shelter.uwu.network/moonlight/";
         };
       };
-      home.file."Library/Application Support/moonlight-mod/canary.json".source =
-        settingsFormat.generate "moonlight-settings.json" cfg.moonlight;
     })
-
     (mkIf isLinux {
       programs.discord.package = pkgs.discord-canary.override {
         withMoonlight = true;
         moonlight = inputs.moonlight.packages.${system}.moonlight;
       };
-      xdg.configFile."moonlight-mod/canary.json".source =
-        settingsFormat.generate "moonlight-settings.json" cfg.moonlight;
     })
-
     {
       programs.discord = {
         enable = true;
         configName = "discordcanary";
 
-        settings = {
-          DANGEROUS_ENABLE_DEVTOOLS_ONLY_ENABLE_IF_YOU_KNOW_WHAT_YOURE_DOING = true;
-        };
+        settings.DANGEROUS_ENABLE_DEVTOOLS_ONLY_ENABLE_IF_YOU_KNOW_WHAT_YOURE_DOING = true;
 
         moonlight = {
           extensions = {
@@ -80,6 +74,10 @@ in
           repositories = [ "https://moonlight-mod.github.io/extensions-dist/repo.json" ];
         };
       };
+
+      home.file."${configDir}/${cfg.configName}/settings.json".force = true; # TODO: Discord recently started recreating(?) this file at runtime so home-manager thinks it'll be "clobbered", contribute upstream?
+      home.file."${configDir}/moonlight-mod/canary.json".source =
+        jsonFormat.generate "moonlight-settings.json" cfg.moonlight;
     }
   ]);
 }
