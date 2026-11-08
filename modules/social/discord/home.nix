@@ -32,8 +32,10 @@ in
           NEW_UPDATE_ENDPOINT = "https://inject.shelter.uwu.network/moonlight/";
         };
       };
-      home.file."Library/Application Support/moonlight-mod/canary.json".source =
-        settingsFormat.generate "moonlight-settings.json" cfg.moonlight;
+      home.file."Library/Application Support/moonlight-mod/canary.json" = {
+        source = settingsFormat.generate "moonlight-settings.json" cfg.moonlight;
+        force = true;
+      };
     })
 
     (mkIf isLinux {
@@ -41,8 +43,10 @@ in
         withMoonlight = true;
         moonlight = inputs.moonlight.packages.${system}.moonlight;
       };
-      xdg.configFile."moonlight-mod/canary.json".source =
-        settingsFormat.generate "moonlight-settings.json" cfg.moonlight;
+      xdg.configFile."moonlight-mod/canary.json" = {
+        source = settingsFormat.generate "moonlight-settings.json" cfg.moonlight;
+        force = true;
+      };
     })
 
     {
