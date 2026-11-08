@@ -1,7 +1,3 @@
 {
-  config,
-  ...
-}:
-{
-  programs.firejail.enable = config.swamp.security.firejail.enable;
+  programs.firejail.enable = true;
 }

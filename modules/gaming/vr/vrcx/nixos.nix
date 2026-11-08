@@ -5,16 +5,12 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-
-  enabled = config.swamp.gaming.vr.vrcx.enable;
-  shouldFirejail = enabled && config.swamp.security.firejail.enable;
+  inherit (pkgs) vrcx;
 in
-{
-  environment.systemPackages = mkIf enabled [ pkgs.vrcx ];
-
-  programs.firejail.wrappedBinaries.vrcx = mkIf shouldFirejail {
-    executable = "${pkgs.vrcx}/bin/vrcx";
+lib.modules.mkIf config.swamp.gaming.vr.vrcx.enable {
+  environment.systemPackages = [ vrcx ];
+  programs.firejail.wrappedBinaries.vrcx = {
+    executable = lib.meta.getExe' vrcx "vrcx";
     profile = ./firejail.profile;
   };
 }
