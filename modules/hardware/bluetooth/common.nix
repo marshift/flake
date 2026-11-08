@@ -7,7 +7,7 @@
 }:
 {
   options.swamp.hardware.bluetooth.enable =
-    self.lib.options.mkEnableOptionWithDefault "configuration for Bluetooth support" pkgs.stdenv.hostPlatform.isLinux;
+    lib.options.mkEnableOption "configuration for Bluetooth support";
 
   config.assertions = lib.modules.mkIf config.swamp.hardware.bluetooth.enable [
     (self.lib.modules.assertIsLinux pkgs)
