@@ -71,6 +71,8 @@ mkIf osConfig.swamp.development.vscode.enable {
             };
           };
         };
+        "vscode-just.justPath" = getExe pkgs.just;
+        "vscode-just.lspPath" = getExe pkgs.just-lsp;
 
         # Associations
         "workbench.editorAssociations" = {
@@ -94,6 +96,7 @@ mkIf osConfig.swamp.development.vscode.enable {
         golang.go
         jnoortheen.nix-ide
         kdl-org.kdl
+        nefrob.vscode-just-syntax
         rust-lang.rust-analyzer
         theqtcompany.qt-core
         theqtcompany.qt-qml
