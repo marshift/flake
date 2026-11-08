@@ -93,6 +93,7 @@ mkIf osConfig.swamp.development.vscode.enable {
 
         astro-build.astro-vscode
         denoland.vscode-deno
+        github.vscode-github-actions
         golang.go
         jnoortheen.nix-ide
         kdl-org.kdl
