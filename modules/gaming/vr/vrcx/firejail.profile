@@ -18,8 +18,8 @@ mkdir ${HOME}/Pictures/VRCX/
 whitelist ${HOME}/Pictures/VRCX/
 
 # TODO: Use VRChat media folder rather than hardcode
-whitelist /mnt/data/games/steam/steamapps/compatdata/438100/pfx/drive_c/users/steamuser/AppData/LocalLow/VRChat/VRChat/
-whitelist /mnt/data/games/steam/steamapps/compatdata/438100/pfx/drive_c/users/steamuser/Pictures/VRChat/
+whitelist /mnt/data/games/steamapps/compatdata/438100/pfx/drive_c/users/steamuser/AppData/LocalLow/VRChat/VRChat/
+whitelist /mnt/data/games/steamapps/compatdata/438100/pfx/drive_c/users/steamuser/Pictures/VRChat/
 
 private-etc @tls-ca
 
