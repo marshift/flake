@@ -59,6 +59,7 @@ lib.modules.mkIf (osConfig.swamp.desktop.labwc.enable && pkgs.stdenv.hostPlatfor
             "@key" = "Print";
             action = {
               "@name" = "Execute";
+              # TODO: Don't hardcode the colours here
               command = "sh -c '${getExe pkgs.grim} -c -g \"$(${getExe pkgs.slurp} -c FF0A88FF -s 00000000 -b 000000CC)\" - | ${pkgs.wl-clipboard}/bin/wl-copy'";
             };
           }

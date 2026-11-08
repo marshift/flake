@@ -1,10 +1,8 @@
 {
-  lib,
   pkgs,
-  osConfig,
   ...
 }:
-lib.modules.mkIf osConfig.swamp.desktop.cursor.enable {
+{
   home.pointerCursor = {
     enable = true;
     gtk.enable = true;

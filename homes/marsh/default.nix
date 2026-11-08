@@ -1,8 +1,4 @@
 {
-  imports = [
-    ./vscode.nix
-  ];
-
   programs = {
     git.settings.user = {
       name = "marshift";

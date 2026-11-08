@@ -4,27 +4,12 @@
   osConfig,
   ...
 }:
-let
-  wallpaperCfg = osConfig.swamp.desktop.wallpapers;
-
-  activeWallpaperPoolDirectories = map (name: wallpaperCfg.pools.${name}) wallpaperCfg.activePools;
-  wallpapersDirectory = pkgs.symlinkJoin {
-    name = "wallpapers";
-    paths = activeWallpaperPoolDirectories;
-  };
-in
 lib.modules.mkIf (osConfig.swamp.desktop.labwc.enable && pkgs.stdenv.hostPlatform.isLinux) {
   programs.noctalia = {
     enable = true;
     systemd.enable = true;
 
     settings = {
-      theme = {
-        mode = "dark";
-        source = "builtin";
-        builtin = "Gruvbox";
-      };
-
       shell = {
         corner_radius_scale = 0;
         popup_shadows = false;
@@ -109,18 +94,6 @@ lib.modules.mkIf (osConfig.swamp.desktop.labwc.enable && pkgs.stdenv.hostPlatfor
           "power"
         ];
         shortcuts = [ ];
-      };
-
-      wallpaper = {
-        enabled = wallpaperCfg.enable;
-        directory = wallpapersDirectory;
-
-        automation = {
-          enabled = true;
-          interval_seconds = wallpaperCfg.cycleInterval;
-          order = "alphabetical";
-          recursive = true;
-        };
       };
     };
   };

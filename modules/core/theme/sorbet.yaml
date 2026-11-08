@@ -1,0 +1,22 @@
+system: "base16"
+name: "sorbet"
+author: "marshift (https://marshift.ing)"
+variant: "dark"
+palette:
+  base00: "#1e000f" # DARK_TERTIARY
+  base01: "#310019" # DARK_SECONDARY
+  base02: "#450023" # DARK_PRIMARY
+  base03: "#a34a78" # (interpolated)
+  base04: "#ffa7d4" # LIGHT_TERTIARY
+  base05: "#ffbbde" # LIGHT_SECONDARY
+  base06: "#ffcee7" # LIGHT_PRIMARY
+  base07: "#fff5fa" # (interpolated)
+
+  base08: "#d6006e" # ACCENT_TERTIARY
+  base09: "#ff4d9d" # (interpolated)
+  base0A: "#ff80b8" # (interpolated)
+  base0B: "#ffcee7" # LIGHT_PRIMARY
+  base0C: "#ff9ac7" # (interpolated)
+  base0D: "#ff66ad" # (interpolated)
+  base0E: "#ff0a88" # ACCENT_PRIMARY
+  base0F: "#8f164f" # (interpolated)
