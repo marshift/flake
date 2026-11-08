@@ -1,5 +1,0 @@
-# Quickshell's "managed qmlls configuration" system kinda sucks:
-# If you're modifying marshell and want the language server to work, create ./.qmlls.ini here.
-# It uses symlinks and machine-specific paths, so let's not include it in version control.
-# TODO: Make some vain attempt at preconfiguring this with Nix?
-.qmlls.ini

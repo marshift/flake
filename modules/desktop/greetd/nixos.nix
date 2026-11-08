@@ -14,13 +14,11 @@ lib.modules.mkIf config.swamp.desktop.greetd.enable {
       user = "greeter";
       command = lib.strings.concatStringsSep " " [
         (lib.meta.getExe pkgs.tuigreet)
-        "--time"
         "--asterisks"
-        "--greeting 'helo, who is you?'"
-        "--background matrix"
-        "--matrix-colors 'magenta,lightmagenta,red'"
+        "--time"
         "--title"
-        "--custom-title '${config.networking.hostName}'"
+        "--custom-title ${config.networking.hostName}"
+        "--background doom"
       ];
     };
   };
