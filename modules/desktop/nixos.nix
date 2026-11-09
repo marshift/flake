@@ -5,7 +5,6 @@
 }:
 lib.modules.mkIf config.swamp.desktop.enable {
   environment.variables = {
-    DISPLAY = ":0";
     NIXOS_OZONE_WL = "1";
     XDG_SESSION_TYPE = "wayland";
     SDL_VIDEODRIVER = "wayland";

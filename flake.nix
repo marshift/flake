@@ -44,8 +44,8 @@
       url = "github:nix-community/stylix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    niri = {
-      url = "github:sodiboo/niri-flake";
+    niri-flake = {
+      url = "github:epireyn/niri-flake/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

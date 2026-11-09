@@ -6,17 +6,17 @@
   ...
 }:
 let
-  inherit (inputs) niri;
+  inherit (inputs.niri-flake) nixosModules packages;
 in
 {
   imports = [
-    niri.nixosModules.niri
+    nixosModules.niri
   ];
 
   config = lib.modules.mkIf config.swamp.desktop.niri.enable {
     programs.niri = {
       enable = true;
-      package = pkgs.niri; # TODO: niri-unstable doesn't seem to work
+      package = packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable;
     };
   };
 }
