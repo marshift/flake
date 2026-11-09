@@ -6,6 +6,7 @@
   ...
 }:
 lib.modules.mkIf (osConfig.swamp.desktop.waybar.enable && pkgs.stdenv.hostPlatform.isLinux) {
+  stylix.targets.waybar.fonts.enable = false; # WHy does it use the mono font???
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -17,14 +18,11 @@ lib.modules.mkIf (osConfig.swamp.desktop.waybar.enable && pkgs.stdenv.hostPlatfo
         height = 32;
 
         "clock" = {
-          tooltip = false;
+          "format" = "{:%H.%M}";
+          "tooltip-format" = "{:%Y-%m-%d}";
         };
-        "battery" = {
-          format = "battery {capacity}%";
-        };
-        "temperature" = {
-          format = "temperature {temperatureC}°C";
-        };
+        "battery".format = "battery {capacity}%";
+        "temperature".format = "temperature {temperatureC}°C";
 
         modules-left = lib.lists.optionals osConfig.swamp.desktop.niri.enable [
           "niri/workspaces"
@@ -43,11 +41,10 @@ lib.modules.mkIf (osConfig.swamp.desktop.waybar.enable && pkgs.stdenv.hostPlatfo
         font-family: ${config.stylix.fonts.sansSerif.name};
         font-size: 14px;
         font-weight: 500;
+        border-radius: unset;
       }
 
       window#waybar {
-        color: ${base05};
-        background-color: ${base00};
         border-bottom: 1px solid ${base0D};
       }
 
