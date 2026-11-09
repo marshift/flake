@@ -1,4 +1,4 @@
-# TODO: Should program-specific firewall rules be moved into the programs' modules?
+# TODO: Move program-specific firewall rules into their modules?
 {
   lib,
   config,
@@ -8,6 +8,9 @@ let
   inherit (lib.trivial) mergeAttrs;
   inherit (lib.lists) map concatLists imap1;
   inherit (config.swamp.users) users;
+
+  cfg = config.swamp.security.little-snitch;
+  appStoreAction = if cfg.appStore.enable then "allow" else "deny";
 
   mkHomeManagerAppRuleset =
     executable: rule:
@@ -27,22 +30,17 @@ let
       [ (mergeAttrs rule { owner = "system"; }) ]
       (imap1 (idx: _: mergeAttrs rule { uid = 500 + idx; }) config.swamp.users.users)
     ];
-
-  # Change this to "allow" if you'd like the Mac App Store to (barely) work at the cost of more telemetry
-  # TODO: Make this a proper option!
-  appStoreAction = "deny";
 in
 {
   imports = [
     ./_module.nix
   ];
 
-  config = lib.modules.mkIf config.swamp.security.little-snitch.enable {
+  config = lib.modules.mkIf cfg.enable {
     homebrew.casks = [ "little-snitch@nightly" ];
 
     services.little-snitch = {
       enable = true;
-
       config = {
         /*nixfmt:disable*/
         rules = concatLists [
