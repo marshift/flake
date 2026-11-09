@@ -50,7 +50,6 @@ in
         };
       };
 
-      # TODO: Probably should be configurable but thog don't caare
       boot.extraModprobeConfig = ''
         options hid_apple iso_layout=0
       '';

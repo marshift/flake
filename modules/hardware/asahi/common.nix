@@ -18,7 +18,7 @@ in
 
   config.assertions = lib.modules.mkIf config.swamp.hardware.asahi.enable [
     {
-      assertion = (pkgs.stdenv.hostPlatform.system == "aarch64-linux"); # TODO: Use a better check here?
+      assertion = (pkgs.stdenv.hostPlatform.system == "aarch64-linux"); # Flimsy check but whatever
       message = "This module should only be imported on Asahi Linux.";
     }
   ];

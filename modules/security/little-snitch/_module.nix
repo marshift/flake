@@ -125,7 +125,7 @@ let
         default = 1;
       };
 
-      # TODO: Invalid integer in Nix...
+      # Invalid integer in Nix...
       # TODO: What does this enum contain, anyway?
       #enabledUserNotificationTypes = mkOption {
       #  type = int;
@@ -437,7 +437,6 @@ in
 {
   options.services.little-snitch = {
     enable = mkEnableOption "Little Snitch firewall";
-
     config = {
       globalDefaults = mkOption {
         type = preferencesType;

@@ -1,4 +1,3 @@
-# TODO: Is this the right place for this?
 {
   self,
   config,

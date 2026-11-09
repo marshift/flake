@@ -11,7 +11,6 @@ in
 
   programs.vrcx = {
     inherit (osConfig.swamp.gaming.vr.vrcx) enable;
-
     config = {
       "config:vrcx_onboarding_welcome_seen" = "true";
       "config:vrcx_thememode" = "midnight";

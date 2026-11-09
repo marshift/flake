@@ -13,8 +13,5 @@
     };
   };
 
-  users.groups = {
-    network.members = config.swamp.users.users; # TODO: Remove?
-    networkmanager.members = config.swamp.users.users;
-  };
+  users.groups.networkmanager.members = config.swamp.users.users;
 }

@@ -1,4 +1,4 @@
-# TODO: This is only covering QtQuick at the moment
+# TODO: Actual Qt, not just QtQuick?
 {
   lib,
   pkgs,

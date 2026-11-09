@@ -19,6 +19,7 @@ mkIf config.swamp.gaming.steam.enable {
         inputs.nixpkgs-xr.packages.${pkgs.stdenv.hostPlatform.system}.proton-rtsp-bin
       ];
     };
+
     gamescope.enable = true;
   };
 

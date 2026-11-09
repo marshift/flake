@@ -16,7 +16,6 @@ mkIf osConfig.swamp.development.vscode.enable {
     enable = true;
     profiles.default = {
       enableUpdateCheck = false;
-
       userSettings = {
         # Make start-up less noisy
         "update.showReleaseNotes" = false;
@@ -82,7 +81,7 @@ mkIf osConfig.swamp.development.vscode.enable {
         };
       };
 
-      # TODO: Is it at all worth doing conditional extension inclusion for, e.g. dprint?
+      # TODO: Conditional extension inclusion?
       extensions = with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
         aaron-bond.better-comments
         naumovs.color-highlight

@@ -12,11 +12,10 @@ lib.modules.mkIf osConfig.swamp.development.git.enable {
         init.defaultBranch = "master";
       };
     };
+
     gh = {
       enable = true;
-      settings = {
-        git_protocol = "ssh";
-      };
+      settings.git_protocol = "ssh";
     };
   };
 }

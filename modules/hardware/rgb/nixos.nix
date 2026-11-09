@@ -36,12 +36,14 @@ lib.modules.mkIf (cfg.color != null) {
   services.udev.packages = [ openrgb ];
 
   systemd.services.rgb = {
-    restartIfChanged = false;
     description = "RGB Devices";
+
     serviceConfig = {
-      ExecStart = getExe rgbScript;
       Type = "exec";
+      ExecStart = getExe rgbScript;
     };
+    restartIfChanged = false;
+
     wantedBy = [ "multi-user.target" ];
   };
 }

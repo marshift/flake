@@ -10,7 +10,7 @@ lib.modules.mkIf
     services.kanshi = {
       enable = true;
 
-      # TODO: Support kanshi profiles "properly"?
+      # TODO: Custom kanshi profiles?
       settings = [
         {
           profile = {
