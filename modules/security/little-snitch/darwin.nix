@@ -77,13 +77,11 @@ in
             # Geolocation database
             { action = "allow"; process = "identifier.MLZF7K7B5R/at.obdev.littlesnitch.networking"; remote = "any"; }
 
-            # It's a REST client, let it REST
-            { action = "allow"; process = "identifier.27PU3P6ELJ8/app.yaak.desktop"; remote = "any"; }
+            # TODO: Firewall rule to allow modules/development/slumber to access all hosts
 
             # Update checks for Homebrew apps
             { action = "deny"; process = "identifier.MLZF7K7B5R/at.obdev.littlesnitch.softwareupdate"; remote = "any"; }
             { action = "deny"; process = "identifier.5F967GYF84/com.MrKai77.Loop"; remote = "any"; }
-            { action = "deny"; process = "identifier.27PU3P6ELJ8/app.yaak.desktop"; remote-domains = [ "yaak.app" ]; }
           ]
 
           # Apple
