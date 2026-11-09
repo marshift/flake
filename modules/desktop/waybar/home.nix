@@ -38,7 +38,6 @@ lib.modules.mkIf (osConfig.swamp.desktop.waybar.enable && pkgs.stdenv.hostPlatfo
         font-family: ${config.stylix.fonts.sansSerif.name};
         font-size: 14px;
         font-weight: 500;
-        border-radius: unset;
       }
 
       window#waybar {
@@ -51,6 +50,10 @@ lib.modules.mkIf (osConfig.swamp.desktop.waybar.enable && pkgs.stdenv.hostPlatfo
 
       .modules-right {
         margin-right: 0.5rem;
+      }
+
+      #workspaces button {
+        border-radius: unset;
       }
 
       #tray widget > image {
