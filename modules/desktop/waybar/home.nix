@@ -17,10 +17,7 @@ lib.modules.mkIf (osConfig.swamp.desktop.waybar.enable && pkgs.stdenv.hostPlatfo
         position = "top";
         height = 32;
 
-        "clock" = {
-          "format" = "{:%H.%M}";
-          "tooltip-format" = "{:%Y-%m-%d}";
-        };
+        "clock"."tooltip-format" = "{:%Y-%m-%d}";
         "battery".format = "battery {capacity}%";
         "temperature".format = "temperature {temperatureC}°C";
 
