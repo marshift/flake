@@ -86,7 +86,10 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
           natural-scroll = true;
         };
 
-        focus-follows-mouse.enable = true;
+        focus-follows-mouse = {
+          enable = true;
+          max-scroll-amount = "0%";
+        };
       };
 
       hotkey-overlay.skip-at-startup = true;
