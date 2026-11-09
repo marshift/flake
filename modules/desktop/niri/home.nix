@@ -9,7 +9,7 @@
 let
   inherit (lib.modules) mkIf;
   inherit (lib.meta) getExe getExe';
-  inherit (lib.attrsets) optionalAttrs;
+  inherit (lib.attrsets) mergeAttrsList optionalAttrs;
 
   desktopCfg = osConfig.swamp.desktop;
   programCfg = config.programs;
@@ -133,19 +133,26 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
           "Mod+D".action = switch-focus-between-floating-and-tiling;
           "Mod+Shift+D".action = toggle-window-floating;
 
-          # Screenshots
-          "Mod+S".action.screenshot = [ ];
-          "Mod+Shift+S".action.screenshot-window = [ ];
-          "Mod+Ctrl+Shift+S".action.screenshot-screen = {
-            show-pointer = false;
-          };
-
           # Other
           "Mod+Shift+O".action = toggle-overview;
           "Mod+Shift+Escape".action = toggle-keyboard-shortcuts-inhibit;
           "Mod+Shift+P".action = power-off-monitors;
           "Mod+Shift+L".action = quit;
         }
+        // mergeAttrsList (
+          lib.lists.map
+            (combo: {
+              ${combo}.action.screenshot = [ ];
+              "Shift+${combo}".action.screenshot-window = [ ];
+              "Alt+Shift+${combo}".action.screenshot-screen = {
+                show-pointer = false;
+              };
+            })
+            [
+              "Print"
+              "Mod+S"
+            ]
+        )
         // optionalAttrs desktopCfg.ghostty.enable {
           "Mod+Return".action.spawn = "${getExe programCfg.ghostty.package}";
         }
