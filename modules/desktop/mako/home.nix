@@ -8,7 +8,7 @@ lib.modules.mkIf (osConfig.swamp.desktop.mako.enable && pkgs.stdenv.hostPlatform
   services.mako = {
     enable = true;
     settings = {
-      default-timeout = 1000;
+      default-timeout = 3000;
       ignore-timeout = true;
     };
   };
