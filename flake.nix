@@ -45,7 +45,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri-flake = {
-      url = "github:epireyn/niri-flake/main";
+      url = "github:epireyn/niri-flake/fix/ifd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
