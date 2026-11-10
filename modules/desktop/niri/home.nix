@@ -137,7 +137,7 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
           "Mod+Shift+D".action = toggle-window-floating;
 
           # Other
-          "Mod+Shift+O".action = toggle-overview;
+          "Mod+O".action = toggle-overview;
           "Mod+Shift+Escape".action = toggle-keyboard-shortcuts-inhibit;
           "Mod+Shift+P".action = power-off-monitors;
           "Mod+Shift+L".action = quit;
