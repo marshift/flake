@@ -22,7 +22,7 @@ jobs:
       - name: Update flake inputs
         run: |
           set -euo pipefail
-          nix flake update 2>&1 | tee /tmp/flake-inputs.log
+          nix develop -c just update 2>&1 | tee /tmp/flake-inputs.log
 
       - name: Generate summary
         run: |

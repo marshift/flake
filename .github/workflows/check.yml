@@ -23,4 +23,4 @@ jobs:
         uses: canidae-solutions/lix-quick-install-action@8ccd1622179c3881955a55d538670c43e4e22c06
         
       - name: Check flake
-        run: nix flake check --show-trace
+        run: nix develop -c just check
