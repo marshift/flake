@@ -13,6 +13,4 @@ mkIf osConfig.swamp.desktop.ghostty.enable {
     enable = true;
     enableZshIntegration = true;
   };
-
-  home.sessionVariables.TERMINAL = "ghostty";
 }
