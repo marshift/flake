@@ -1,4 +1,5 @@
 # TODO: Move program-specific firewall rules into their modules?
+# TODO: Firewall rules for modules/development/slumber, modules/desktop/wezterm
 {
   lib,
   config,
@@ -22,7 +23,7 @@ let
     ) users;
 
   # Terrible hack to define rules for all users - on macOS, UIDs start at 500, so iterate our users and calculate their UID based on that.
-  # This makes several assumptions, but primarily that the users on the Mac were created in the same order they are defined in our config.
+  # This makes several assumptions, but primarily that the users on the Mac were created in the same order they are defined in the config.
   # "anyway this solution sucks huge dick and balls but it works"
   mkGlobalRuleset =
     rule:
@@ -54,10 +55,7 @@ in
           # Apps
           [
             { action = "allow"; process = "identifier.W5364U7YZB/io.tailscale.ipn.macsys.network-extension"; remote = "any"; direction = "both"; }
-
             { action = "allow"; process = "identifier.W5364U7YZB/io.tailscale.ipn.macsys"; remote = "any"; }
-            { action = "allow"; process = "identifier.24VZTF6M5V/com.mitchellh.ghostty"; remote = "any"; }
-            { action = "allow"; process = "identifier.2BUA8C4S2C/com.1password.1password"; remote = "any"; }
             { action = "allow"; process = "identifier.S4Q33XPHB4/net.imput.helium"; remote = "any"; }
             { action = "allow"; process = "identifier.53Q6R32WPB/com.hnc.DiscordCanary"; remote = "any"; }
             { action = "allow"; process = "identifier.53Q6R32WPB/com.hnc.DiscordCanary.helper"; remote = "any"; }
@@ -75,11 +73,8 @@ in
             # Geolocation database
             { action = "allow"; process = "identifier.MLZF7K7B5R/at.obdev.littlesnitch.networking"; remote = "any"; }
 
-            # TODO: Firewall rule to allow modules/development/slumber to access all hosts
-
             # Update checks for Homebrew apps
             { action = "deny"; process = "identifier.MLZF7K7B5R/at.obdev.littlesnitch.softwareupdate"; remote = "any"; }
-            { action = "deny"; process = "identifier.5F967GYF84/com.MrKai77.Loop"; remote = "any"; }
           ]
 
           # Apple
