@@ -18,6 +18,8 @@ lib.modules.mkIf config.swamp.desktop.greetd.enable {
         "--time"
         "--title"
         "--custom-title ${config.networking.hostName}"
+        "--greeting \"Who might you be?\""
+        "--width 40"
         "--background doom"
       ];
     };
