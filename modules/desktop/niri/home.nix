@@ -156,8 +156,8 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
               "Mod+S"
             ]
         )
-        // optionalAttrs desktopCfg.ghostty.enable {
-          "Mod+Return".action.spawn = "${getExe programCfg.ghostty.package}";
+        // optionalAttrs desktopCfg.wezterm.enable {
+          "Mod+Return".action.spawn = "${getExe programCfg.wezterm.package}";
         }
         // optionalAttrs desktopCfg.fuzzel.enable {
           "Mod+Space".action.spawn = "${getExe programCfg.fuzzel.package}";
