@@ -17,9 +17,14 @@ lib.modules.mkIf (osConfig.swamp.desktop.waybar.enable && pkgs.stdenv.hostPlatfo
         position = "top";
         height = 32;
 
-        "clock"."tooltip-format" = "{:%Y-%m-%d}";
-        "battery".format = "battery {capacity}%";
-        "temperature".format = "temperature {temperatureC}°C";
+        clock.tooltip-format = "{:%d/%m/%Y}";
+
+        battery.format = "battery {capacity}%";
+
+        temperature = {
+          format = "temperature {temperatureC}°C";
+          tooltip = false;
+        };
 
         modules-left = lib.lists.optionals osConfig.swamp.desktop.niri.enable [
           "niri/workspaces"
