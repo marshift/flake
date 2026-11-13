@@ -90,6 +90,11 @@ mkIf osConfig.swamp.development.vscode.enable {
           extensions = [ rust-lang.rust-analyzer ];
           userSettings."rust-analyzer.server.path" = getExe pkgs.rust-analyzer;
         })
+        (mkIf osConfig.swamp.development.typst.enable {
+          extensions = [ myriad-dreamin.tinymist ];
+          userSettings."tinymist.serverPath" = getExe pkgs.tinymist;
+          # TODO: Can I make it use the system Typst compiler?
+        })
         (mkIf osConfig.swamp.development.dprint.enable {
           extensions = [ dprint.dprint ];
           userSettings."dprint.path" = getExe config.programs.dprint.package;
