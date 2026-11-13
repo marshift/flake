@@ -10,6 +10,7 @@ let
   inherit (lib.modules) mkIf;
   inherit (lib.meta) getExe getExe';
   inherit (lib.attrsets) mergeAttrsList optionalAttrs;
+  inherit (lib.lists) map optional;
 
   desktopCfg = osConfig.swamp.desktop;
   programCfg = config.programs;
@@ -25,9 +26,6 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
           inputs.niri-flake.packages.${pkgs.stdenv.hostPlatform.system}.xwayland-satellite-unstable;
 
       screenshot-path = null;
-
-      # Style
-      prefer-no-csd = true;
 
       layout = {
         gaps = 8;
@@ -45,9 +43,9 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
 
         background-color = "transparent";
       };
-
       overview.workspace-shadow.enable = false;
 
+      prefer-no-csd = true;
       window-rules = [
         {
           draw-border-with-background = false;
@@ -63,20 +61,56 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
               bottom-right = r;
             };
         }
-      ];
+      ]
+      ++ (optional osConfig.swamp.social.signal.enable {
+        matches = [
+          {
+            app-id = "^signal$";
+          }
+        ];
+        block-out-from = "screencast";
+      })
+      ++ (optional osConfig.swamp.gaming.steam.enable {
+        matches = [
+          {
+            app-id = "^steam$";
+            title = "^notificationtoasts";
+          }
+        ];
+        open-focused = false;
+        default-floating-position = {
+          relative-to = "bottom-right";
+          x = 8;
+          y = 8;
+        };
+      });
 
-      layer-rules = [
-        {
-          matches = [
-            {
-              layer = "background"; # Should this be scoped to specifically the wallpaper?
-            }
-          ];
-          place-within-backdrop = true;
-        }
-      ];
+      layer-rules =
+        (map
+          (layer: {
+            matches = [
+              {
+                inherit layer;
+              }
+            ];
+            place-within-backdrop = true;
+          })
+          [
+            "background"
+            "top"
+          ]
+        )
+        ++ [
+          {
+            matches = [
+              {
+                namespace = "^notifications$";
+              }
+            ];
+            block-out-from = "screencast";
+          }
+        ];
 
-      # Input
       input = {
         keyboard.xkb.layout = osConfig.environment.variables.XKB_DEFAULT_LAYOUT;
 
@@ -143,7 +177,7 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
           "Mod+Shift+L".action = quit;
         }
         // mergeAttrsList (
-          lib.lists.map
+          map
             (combo: {
               ${combo}.action.screenshot = [ ];
               "Shift+${combo}".action.screenshot-window = [ ];
