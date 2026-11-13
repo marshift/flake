@@ -6,7 +6,8 @@
 }:
 lib.modules.mkIf osConfig.swamp.development.rust.enable {
   home.packages = with pkgs; [
-    clang
-    rustup
+    cargo
+    rustc
+    rust-analyzer
   ];
 }
