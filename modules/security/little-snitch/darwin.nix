@@ -62,7 +62,6 @@ in
             { action = "allow"; process = "identifier.53Q6R32WPB/com.hnc.DiscordCanary.helper.Renderer"; remote = "any"; }
             { action = "allow"; process = "identifier.UBF8T346G9/com.microsoft.VSCode"; remote = "any"; }
             { action = "allow"; process = "identifier.TQ3LTB39SU/app.liten.Gram"; remote = "any"; }
-            { action = "allow"; process = "identifier.2ZEFAR8TH3/com.jetbrains.intellij"; remote = "any"; }
             { action = "allow"; process = "identifier.43AQ936H96/org.mozilla.thunderbird"; remote = "any"; }
 
             { action = "allow"; process = "identifier.MZM5U2NVNH/org.prismlauncher.PrismLauncher"; remote = "any"; }
