@@ -26,9 +26,7 @@ lib.modules.mkIf (osConfig.swamp.desktop.waybar.enable && pkgs.stdenv.hostPlatfo
           tooltip = false;
         };
 
-        modules-left = lib.lists.optionals osConfig.swamp.desktop.niri.enable [
-          "niri/workspaces"
-        ];
+        modules-left = lib.lists.optional osConfig.swamp.desktop.niri.enable "niri/workspaces";
         modules-center = [ "clock" ];
         modules-right = [
           "temperature"

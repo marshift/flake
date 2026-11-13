@@ -33,7 +33,7 @@ let
         "${self}/hosts/${name}"
         "${self}/modules/${class}.nix"
       ]
-      ++ (lib.lists.optionals (class == "nixos") [ { networking.hostId = id; } ])
+      ++ (lib.lists.optional (class == "nixos") { networking.hostId = id; })
       ++ listModulesRecursive "common.nix"
       ++ listModulesRecursive "${class}.nix";
     }
