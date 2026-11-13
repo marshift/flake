@@ -4,7 +4,7 @@
   ...
 }:
 {
-  options.swamp.media.vlc.enable = self.lib.options.mkEnableOptionWithDefault "VLC media player" (
+  options.swamp.media.mpv.enable = self.lib.options.mkEnableOptionWithDefault "mpv" (
     config.swamp.media.enable && config.swamp.desktop.enable
   );
 }
