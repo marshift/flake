@@ -80,8 +80,8 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
         open-focused = false;
         default-floating-position = {
           relative-to = "bottom-right";
-          x = 8;
-          y = 8;
+          x = 0;
+          y = 0;
         };
       });
 
