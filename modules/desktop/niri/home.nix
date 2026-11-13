@@ -147,23 +147,23 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
             (combo: {
               ${combo}.action.screenshot = [ ];
               "Shift+${combo}".action.screenshot-window = [ ];
-              "Alt+Shift+${combo}".action.screenshot-screen = {
+              "Shift+Alt+${combo}".action.screenshot-screen = {
                 show-pointer = false;
               };
             })
             [
               "Print"
-              "Mod+S"
+              "Mod+S" # This one's a tad weird due to Niri's bindings actually taking order into account. I like this logic too much to care though.
             ]
         )
         // optionalAttrs desktopCfg.wezterm.enable {
-          "Mod+Return".action.spawn = "${getExe programCfg.wezterm.package}";
+          "Mod+Return".action.spawn = getExe programCfg.wezterm.package;
         }
         // optionalAttrs desktopCfg.fuzzel.enable {
-          "Mod+Space".action.spawn = "${getExe programCfg.fuzzel.package}";
+          "Mod+Space".action.spawn = getExe programCfg.fuzzel.package;
         }
         // optionalAttrs desktopCfg.swaylock.enable {
-          "Mod+L".action.spawn = "${getExe programCfg.swaylock.package}";
+          "Mod+L".action.spawn = getExe programCfg.swaylock.package;
         }
         // optionalAttrs desktopCfg.swayosd.enable {
           /*nixfmt:disable*/
