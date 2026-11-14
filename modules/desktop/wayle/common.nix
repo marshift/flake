@@ -6,11 +6,11 @@
   ...
 }:
 {
-  options.swamp.desktop.mako.enable = self.lib.options.mkEnableOptionWithDefault "mako" (
+  options.swamp.desktop.wayle.enable = self.lib.options.mkEnableOptionWithDefault "Wayle" (
     config.swamp.desktop.enable && pkgs.stdenv.hostPlatform.isLinux
   );
 
-  config.assertions = lib.modules.mkIf config.swamp.desktop.mako.enable [
+  config.assertions = lib.modules.mkIf config.swamp.desktop.wayle.enable [
     (self.lib.modules.assertIsLinux pkgs)
   ];
 }

@@ -15,7 +15,9 @@ let
   desktopCfg = osConfig.swamp.desktop;
   programCfg = config.programs;
 
-  swayosdClient = getExe' config.services.swayosd.package "swayosd-client";
+  brightnessctl = getExe pkgs.brightnessctl;
+  wpctl = getExe' osConfig.services.pipewire.wireplumber.package "wpctl";
+  playerctl = getExe pkgs.playerctl;
 in
 mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
   programs.niri = {
@@ -32,6 +34,7 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
 
         border.width = 1;
         focus-ring.width = 1;
+        shadow.enable = true;
 
         preset-column-widths = [
           { proportion = 0.25; }
@@ -85,8 +88,8 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
         };
       });
 
-      layer-rules =
-        (map
+      layer-rules = (
+        map
           (layer: {
             matches = [
               {
@@ -98,18 +101,9 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
           [
             "background"
             "top"
+            "overlay"
           ]
-        )
-        ++ [
-          {
-            matches = [
-              {
-                namespace = "^notifications$";
-              }
-            ];
-            block-out-from = "screencast";
-          }
-        ];
+      );
 
       input = {
         keyboard.xkb.layout = osConfig.environment.variables.XKB_DEFAULT_LAYOUT;
@@ -149,10 +143,10 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
           "Mod+Shift+Alt+Down".action = move-workspace-down;
           "Mod+Shift+Alt+Up".action = move-workspace-up;
 
-          "Mod+Minus".action = set-column-width "-10%";
-          "Mod+Equal".action = set-column-width "+10%";
-          "Mod+Shift+Minus".action = set-window-height "-10%";
-          "Mod+Shift+Equal".action = set-window-height "+10%";
+          "Mod+Minus".action = set-column-width "-5%";
+          "Mod+Equal".action = set-column-width "+5%";
+          "Mod+Shift+Minus".action = set-window-height "-5%";
+          "Mod+Shift+Equal".action = set-window-height "+5%";
 
           "Mod+R".action = switch-preset-column-width;
           "Mod+F".action = maximize-column;
@@ -175,6 +169,34 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
           "Mod+Shift+Escape".action = toggle-keyboard-shortcuts-inhibit;
           "Mod+Shift+P".action = power-off-monitors;
           "Mod+Shift+L".action = quit;
+
+          /*nixfmt:disable*/
+          # Brightness
+          "XF86MonBrightnessUp".action.spawn = [ brightnessctl "set" "5%+" ];
+          "XF86MonBrightnessDown".action.spawn = [ brightnessctl "set" "5%-" ];
+
+          # Keyboard backlight
+          "Shift+XF86MonBrightnessUp".action.spawn = [ brightnessctl "--device" "kbd_backlight" "set" "5%+" ];
+          "Shift+XF86MonBrightnessDown".action.spawn = [ brightnessctl "--device" "kbd_backlight" "set" "5%-" ];
+          /*nixfmt:enable*/
+        }
+        // optionalAttrs osConfig.swamp.hardware.audio.enable {
+          /*nixfmt:disable*/
+          # Output volume
+          "XF86AudioRaiseVolume".action.spawn = [ wpctl "set-volume" "--limit" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+" ];
+          "XF86AudioLowerVolume".action.spawn = [ wpctl "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-" ];
+          "XF86AudioMute".action.spawn = [ wpctl "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ];
+
+          # Input volume
+          "Shift+XF86AudioRaiseVolume".action.spawn = [ wpctl "set-volume" "--limit" "1.0" "@DEFAULT_AUDIO_SOURCE@" "5%+" ];
+          "Shift+XF86AudioLowerVolume".action.spawn = [ wpctl "set-volume" "@DEFAULT_AUDIO_SOURCE@" "5%-" ];
+          "Shift+XF86AudioMute".action.spawn = [ wpctl "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle" ];
+
+          # Playback
+          "XF86AudioPlay".action.spawn = [ playerctl "play-pause" ];
+          "XF86AudioNext".action.spawn = [ playerctl "next" ];
+          "XF86AudioPrev".action.spawn = [ playerctl "previous" ];
+          /*nixfmt:enable*/
         }
         // mergeAttrsList (
           map
@@ -198,34 +220,6 @@ mkIf (osConfig.swamp.desktop.niri.enable && pkgs.stdenv.hostPlatform.isLinux) {
         }
         // optionalAttrs desktopCfg.swaylock.enable {
           "Mod+L".action.spawn = getExe programCfg.swaylock.package;
-        }
-        // optionalAttrs desktopCfg.swayosd.enable {
-          /*nixfmt:disable*/
-          # Brightness
-          "XF86MonBrightnessUp".action.spawn = [ swayosdClient "--brightness" "raise" ];
-          "XF86MonBrightnessDown".action.spawn = [ swayosdClient "--brightness" "lower" ];
-
-          # Keyboard backlight
-          # TODO: SwayOSD's built-in keyboard backlight handling doesn't seem to work for me...
-          # https://github.com/ErikReider/SwayOSD/issues/218
-          "Shift+XF86MonBrightnessUp".action.spawn = [ swayosdClient "--device" "kbd_backlight" "--brightness" "raise" ];
-          "Shift+XF86MonBrightnessDown".action.spawn = [ swayosdClient "--device" "kbd_backlight" "--brightness" "lower" ];
-
-          # Output volume
-          "XF86AudioRaiseVolume".action.spawn = [ swayosdClient "--output-volume" "raise" ];
-          "XF86AudioLowerVolume".action.spawn = [ swayosdClient "--output-volume" "lower" ];
-          "XF86AudioMute".action.spawn = [ swayosdClient "--output-volume" "mute-toggle" ];
-
-          # Input volume
-          "Shift+XF86AudioRaiseVolume".action.spawn = [ swayosdClient "--input-volume" "raise" ];
-          "Shift+XF86AudioLowerVolume".action.spawn = [ swayosdClient "--input-volume" "lower" ];
-          "Shift+XF86AudioMute".action.spawn = [ swayosdClient "--input-volume" "mute-toggle" ];
-
-          # Playback
-          "XF86AudioPlay".action.spawn = [ swayosdClient "--playerctl" "play-pause" ];
-          "XF86AudioNext".action.spawn = [ swayosdClient "--playerctl" "next" ];
-          "XF86AudioPrev".action.spawn = [ swayosdClient "--playerctl" "prev" ];
-          /*nixfmt:enable*/
         };
     };
   };

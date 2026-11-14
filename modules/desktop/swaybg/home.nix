@@ -15,7 +15,6 @@ lib.modules.mkIf (osConfig.swamp.desktop.swaybg.enable && pkgs.stdenv.hostPlatfo
     };
 
     Service = {
-      Type = "simple";
       ExecStart = "${lib.meta.getExe pkgs.swaybg} -i ${config.stylix.image}";
       Restart = "always";
     };
